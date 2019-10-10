@@ -151,10 +151,15 @@ namespace UnityEngine
                 /// </summary>
                 public const int This = 1;
                 /// <summary>
-                /// The Rule Tile will check if the contents of the cell in that direction is not an instance of this Rule Tile.
-                /// If it is, the rule will fail.
+                /// The Rule Tile will check if the contents of the cell in that direction is not an instance of this Rule Tile, but still a Tile.
+                /// If it is, or is null, the rule will fail.
                 /// </summary>
                 public const int NotThis = 2;
+                /// <summary>
+                /// The Rule Tile will check if the contents of the cell in that direction is null.
+                /// If not, the rule will fail.
+                /// </summary>
+                public const int Empty = 3;
             }
 
             /// <summary>
@@ -410,7 +415,8 @@ namespace UnityEngine
             switch (neighbor)
             {
                 case TilingRule.Neighbor.This: return tile == m_Self;
-                case TilingRule.Neighbor.NotThis: return tile != m_Self;
+                case TilingRule.Neighbor.NotThis: return (tile != m_Self && tile != null);
+                case TilingRule.Neighbor.Empty: return tile == null;
             }
             return true;
         }
