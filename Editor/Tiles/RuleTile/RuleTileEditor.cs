@@ -25,7 +25,8 @@ namespace UnityEditor
         private const string s_MirrorX = "iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC41ZYUyZQAAAG1JREFUOE+lj9ENwCAIRB2IFdyRfRiuDSaXAF4MrR9P5eRhHGb2Gxp2oaEjIovTXSrAnPNx6hlgyCZ7o6omOdYOldGIZhAziEmOTSfigLV0RYAB9y9f/7kO8L3WUaQyhCgz0dmCL9CwCw172HgBeyG6oloC8fAAAAAASUVORK5CYII=";
         private const string s_MirrorY = "iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC41ZYUyZQAAAG9JREFUOE+djckNACEMAykoLdAjHbPyw1IOJ0L7mAejjFlm9hspyd77Kk+kBAjPOXcakJIh6QaKyOE0EB5dSPJAiUmOiL8PMVGxugsP/0OOib8vsY8yYwy6gRyC8CB5QIWgCMKBLgRSkikEUr5h6wOPWfMoCYILdgAAAABJRU5ErkJggg==";
         private const string s_Rotated = "iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwQAADsEBuJFr7QAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC41ZYUyZQAAAHdJREFUOE+djssNwCAMQxmIFdgx+2S4Vj4YxWlQgcOT8nuG5u5C732Sd3lfLlmPMR4QhXgrTQaimUlA3EtD+CJlBuQ7aUAUMjEAv9gWCQNEPhHJUkYfZ1kEpcxDzioRzGIlr0Qwi0r+Q5rTgM+AAVcygHgt7+HtBZs/2QVWP8ahAAAAAElFTkSuQmCC";
-
+        private const string s_OtherTile = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNmlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjarY6xSsNQFEDPi6LiUCsEcXB4kygotupgxqQtRRCs1SHJ1qShSmkSXl7VfoSjWwcXd7/AyVFwUPwC/0Bx6uAQIYODCJ7p3MPlcsGo2HWnYZRhEGvVbjrS9Xw5+8QMUwDQCbPUbrUOAOIkjvjB5ysC4HnTrjsN/sZ8mCoNTIDtbpSFICpA/0KnGsQYMIN+qkHcAaY6addAPAClXu4vQCnI/Q0oKdfzQXwAZs/1fDDmADPIfQUwdXSpAWpJOlJnvVMtq5ZlSbubBJE8HmU6GmRyPw4TlSaqo6MukP8HwGK+2G46cq1qWXvr/DOu58vc3o8QgFh6LFpBOFTn3yqMnd/n4sZ4GQ5vYXpStN0ruNmAheuirVahvAX34y/Axk/96FpPYgAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAUggAARVYAAA6lwAAF2/XWh+QAAAAdElEQVR42qyTOxKAIAxEWcbCK1B5/2NZcQW7ZwMNMCROTMM3S/YBAlIkjt3iJT29f8P5SUASdRgDGvdlK7m0trZ5U2BMBrQTySkYEwNA/ZSV56li6xpXltwWrGQ3g7KxE4boYrCDGa7ABXH1An+zoOh3fgcAkVNC6ZGUg/8AAAAASUVORK5CYII=";
+        
         private static Texture2D[] s_Arrows;
         public static Texture2D[] arrows
         {
@@ -33,7 +34,7 @@ namespace UnityEditor
             {
                 if (s_Arrows == null)
                 {
-                    s_Arrows = new Texture2D[10];
+                    s_Arrows = new Texture2D[11];
                     s_Arrows[0] = Base64ToTexture(s_Arrow0);
                     s_Arrows[1] = Base64ToTexture(s_Arrow1);
                     s_Arrows[2] = Base64ToTexture(s_Arrow2);
@@ -43,6 +44,7 @@ namespace UnityEditor
                     s_Arrows[7] = Base64ToTexture(s_Arrow7);
                     s_Arrows[8] = Base64ToTexture(s_Arrow8);
                     s_Arrows[9] = Base64ToTexture(s_XIconString);
+                    s_Arrows[10] = Base64ToTexture(s_OtherTile);
                 }
                 return s_Arrows;
             }
@@ -194,6 +196,9 @@ namespace UnityEditor
                     GUI.DrawTexture(rect, arrows[arrowIndex]);
                     break;
                 case RuleTile.TilingRule.Neighbor.NotThis:
+                    GUI.DrawTexture(rect, arrows[10]);
+                    break;
+                case RuleTile.TilingRule.Neighbor.Empty:
                     GUI.DrawTexture(rect, arrows[9]);
                     break;
                 default:
